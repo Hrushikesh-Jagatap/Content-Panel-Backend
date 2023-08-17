@@ -1,12 +1,12 @@
 {
-  "name": "auth_sevice",
+  "name": "instructor_mgmt_service",
   "version": "1.0.0",
   "description": "user authentication are required every time must follow the instruction",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "intelliEdtech",
+  "author": "intelliEdtech vikash",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",
