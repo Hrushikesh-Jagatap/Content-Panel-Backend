@@ -5,6 +5,10 @@ exports.createSubTopic = async (req, res) => {
   try {
     const { subTopicName, subTopicDescription, thumbnail, examId, subjectId, chapterId, topicId } = req.body;
 
+    if (!examId || !subjectId || !chapterId || !topicId ) {
+      return res.status(400).json({ success: false, error: " examId , subjectId , chapterId, topicId  are required" });
+    }
+
     const newSubTopic = await SubTopic.create({
       subTopicName,
       subTopicDescription,

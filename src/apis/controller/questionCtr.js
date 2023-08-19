@@ -5,6 +5,11 @@ exports.createQuestion = async (req, res) => {
   try {
     const { questionType, question, options, correctAnswer, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
 
+    if (!examId || !subjectId || !chapterId || !topicId || !subTopicId ) {
+      return res.status(400).json({ success: false, error: "All categories ID  are required" });
+    }
+
+
     const newQuestion = await Question.create({
       questionType,
       question,

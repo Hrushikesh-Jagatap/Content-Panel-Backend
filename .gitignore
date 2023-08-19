@@ -13,6 +13,7 @@ node_modules
 .history
 
 # misc
+.Dev.env
 .env
 .DS_Store
 .env.local

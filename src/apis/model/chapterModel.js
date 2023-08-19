@@ -6,11 +6,15 @@ const chapterSchema = new mongoose.Schema({
   thumbnail: String, // Store the URL of the uploaded image
   exam: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Exam'
+    ref: 'Exam',
+    required: true
+
   },
   subject: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Subject'
+    ref: 'Subject',
+    required: true
+
   }
 });
 

@@ -4,6 +4,10 @@ exports.createSubject = async (req, res) => {
   try {
     const { subjectName, subjectDescription, thumbnail, examId } = req.body;
 
+    if (!examId  ) {
+      return res.status(400).json({ success: false, error: "Exam  ID is required" });
+    }
+
     const newSubject = await Subject.create({
       subjectName,
       subjectDescription,

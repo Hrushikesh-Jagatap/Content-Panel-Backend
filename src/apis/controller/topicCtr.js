@@ -5,6 +5,10 @@ exports.createTopic = async (req, res) => {
   try {
     const { topicName, topicDescription, thumbnail, examId, subjectId, chapterId } = req.body;
 
+    if (!examId || !subjectId || !chapterId) {
+      return res.status(400).json({ success: false, error: "examId, subjectId, chpterId  are required" });
+    }
+
     const newTopic = await Topic.create({
       topicName,
       topicDescription,

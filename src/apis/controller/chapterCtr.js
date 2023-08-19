@@ -1,8 +1,13 @@
 const Chapter = require('../models/chapterModel');
 
+// Vikash create your chapter 
 exports.createChapter = async (req, res) => {
   try {
     const { chapterName, chapterDescription, thumbnail, examId, subjectId } = req.body;
+
+    if (!examId || !subjectId) {
+      return res.status(400).json({ success: false, error: "Both 'examId' and 'subjectId' are required" });
+    }
 
     const newChapter = await Chapter.create({
       chapterName,
