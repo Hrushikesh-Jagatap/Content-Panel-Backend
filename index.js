@@ -1,9 +1,10 @@
-// // server.js (Entry point for the backend)
+// 'use strict';
+// // Let's Go...... 
 // const express = require('express');
-// const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
-// // const route = require("./routes/authRouter")
-// // const router = require("./routes/questionRoutes")
+// const router = require("./src/apis/routes/index")
+// const Logger = require('./src/common/lib/logger');
+// const { BaseError, INTERNAL_SERVER_ERROR } = require('./src/common/lib/custumError');
 
 // const cookieparser =require("cookie-parser");
 // const cors = require('cors');
@@ -12,18 +13,25 @@
 // app.use(cookieparser());  // add cookie parser package
 // app.use(express.json());   
 // app.use(express.urlencoded({extended:false}))
+
 // // Middleware
 // app.use(bodyParser.json());
 // app.use(cors());
 
-// // Connect to MongoDB
-
-
-// // Routes
-// app.use(route);
 // app.use(router);
-// // app.use('/api/users', require('./routes/userRoutes'));
 
+
+// app.use(async (error, req, res, next) => {
+//     try {
+//       if (!(error instanceof BaseError)) {
+//         Logger.error(`Unhandled error: ${error}`);
+//         throw new INTERNAL_SERVER_ERROR();
+//       } else throw error;
+//     } catch (err) {
+//       Logger.error(`Handled error: ${err.message}`);
+//       await err.handleError(req, res);
+//     }
+// });
 
 // const PORT = 5000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
