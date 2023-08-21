@@ -1,37 +1,40 @@
-// 'use strict';
-// // Let's Go...... 
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const router = require("./src/apis/routes/index")
-// const Logger = require('./src/common/lib/logger');
-// const { BaseError, INTERNAL_SERVER_ERROR } = require('./src/common/lib/custumError');
+'use strict';
+// Let's Go...... 
+const express = require('express');
+const bodyParser = require('body-parser');
+const router = require("./src/apis/routes/index")
 
-// const cookieparser =require("cookie-parser");
-// const cors = require('cors');
+const Logger = require('./src/common/lib/logger');
+const { BaseError, INTERNAL_SERVER_ERROR } = require('./src/common/lib/custumError');
 
-// const app = express();
-// app.use(cookieparser());  // add cookie parser package
-// app.use(express.json());   
-// app.use(express.urlencoded({extended:false}))
+const cookieparser =require("cookie-parser");
+const cors = require('cors');
+const mongoose = require("./src/apis/db/mongoose");
 
-// // Middleware
-// app.use(bodyParser.json());
-// app.use(cors());
+const app = express();
+app.use(cookieparser());  // add cookie parser package
+app.use(express.json());   
+app.use(express.urlencoded({extended:false}))
 
-// app.use(router);
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
 
 
-// app.use(async (error, req, res, next) => {
-//     try {
-//       if (!(error instanceof BaseError)) {
-//         Logger.error(`Unhandled error: ${error}`);
-//         throw new INTERNAL_SERVER_ERROR();
-//       } else throw error;
-//     } catch (err) {
-//       Logger.error(`Handled error: ${err.message}`);
-//       await err.handleError(req, res);
-//     }
-// });
+app.use(router);
 
-// const PORT = 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.use(async (error, req, res, next) => {
+    try {
+      if (!(error instanceof BaseError)) {
+        Logger.error(`Unhandled error: ${error}`);
+        throw new INTERNAL_SERVER_ERROR();
+      } else throw error;
+    } catch (err) {
+      Logger.error(`Handled error: ${err.message}`);
+      await err.handleError(req, res);
+    }
+});
+
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

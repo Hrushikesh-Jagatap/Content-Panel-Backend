@@ -1,4 +1,4 @@
-const Topic = require('../models/topicModel');
+const Topic = require('../model/topicModel');
 
 // Create a new topic
 exports.createTopic = async (req, res) => {

@@ -1,4 +1,4 @@
-const Chapter = require('../models/chapterModel');
+const Chapter = require('../model/chapterModel');
 
 // Vikash create your chapter 
 exports.createChapter = async (req, res) => {

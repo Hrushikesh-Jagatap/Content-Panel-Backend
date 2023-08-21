@@ -1,17 +1,19 @@
+const mongoose = require("mongoose");
+require("dotenv").config();
 
+const connectionParams = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+//   useCreateIndex: true,      // Set useCreateIndex option
+//   useFindAndModify: false,   // Set useFindAndModify option
+};
 
-const mongoose =require("mongoose")
-require("dotenv").config()
+mongoose.connect(process.env.DB, connectionParams)
+  .then(() => {
+    console.log("Database connection successful");
+  })
+  .catch((error) => {
+    console.error("Database connection error:", error);
+  });
 
-// const connectionParams={
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify:false
-// }
-
-mongoose.connect(process.env.DB ).then(()=>{
-    console.log("connection succesfull");
-}).catch((e)=>{
-    console.log(e);
-})
+module.exports = mongoose; // Export the mongoose instance

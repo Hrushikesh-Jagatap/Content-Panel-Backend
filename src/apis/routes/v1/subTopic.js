@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const subTopicController = require('../../controllers/subTopicController');
+const subTopicController = require('../../controller/subTopicCtr');
 
 // Create a new subtopic
 router.post('/', subTopicController.createSubTopic);

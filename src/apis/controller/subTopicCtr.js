@@ -1,4 +1,4 @@
-const SubTopic = require('../models/subTopicModel');
+const SubTopic = require('../model/subTopicModel');
 
 // Create a new subtopic
 exports.createSubTopic = async (req, res) => {
