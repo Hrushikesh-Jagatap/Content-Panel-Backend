@@ -7,7 +7,7 @@ const authMiddleware = require("../../services/authMdlWr/authMiddleware"); //  t
 router.post('/createExam', authMiddleware.authenticate,  examController.createExam);
 
 // Get all exams
-router.get('/', examController.getExams);
+router.get('/getExams', examController.getExams);
 
 // Get a specific exam
 router.get('/:id', examController.getExam);
