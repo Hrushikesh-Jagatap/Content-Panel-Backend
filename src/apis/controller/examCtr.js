@@ -1,13 +1,19 @@
 const Exam = require('../model/examModel');
+const cloudinary = require('cloudinary').v2;
+
+// cloudinary.config({ 
+//   cloud_name: 'dfzd4xbsk', 
+//   api_key: '749789724483344', 
+//   api_secret: '***************************' 
+// });
 
 exports.createExam = async (req, res) => {
   try {
-    const { examName, examDescription, thumbnail } = req.body;
-
+    const { examName, examDescription, thumbnail } = req.body; // Thumbnail will be the URL
     const newExam = await Exam.create({
       examName,
       examDescription,
-      thumbnail
+      thumbnail, // Store the URL
     });
 
     res.status(201).json({ success: true, data: newExam });
@@ -15,6 +21,7 @@ exports.createExam = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.getExams = async (req, res) => {
   try {

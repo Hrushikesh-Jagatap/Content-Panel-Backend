@@ -1,11 +1,16 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../model/userMgt/userModel"); 
+const User = require("../../model/userMgt/userModel"); // Rep./lace with the correct path
 require("dotenv").config();
 
 const authMiddleware = {
   authenticate: async (req, res, next) => {
     try {
-      const token = req.cookies.jwt; // the token in a cookie named "jwt"
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ message: "Authentication failed: No token provided." });
+      }
+
+      const token = authHeader.split(" ")[1];
       if (!token) {
         return res.status(401).json({ message: "Authentication failed: No token provided." });
       }
@@ -20,10 +25,10 @@ const authMiddleware = {
         return res.status(401).json({ message: "Authentication failed: User not found." });
       }
 
-      req.token = token; // Pass the token along in the request for later use
-      req.user = user;   // Pass the authenticated user object along in the request
+      req.token = token;
+      req.user = user;
 
-      next(); // Continue to the next middleware or route handler
+      next();
     } catch (error) {
       res.status(401).json({ message: "Authentication failed: Invalid token." });
     }

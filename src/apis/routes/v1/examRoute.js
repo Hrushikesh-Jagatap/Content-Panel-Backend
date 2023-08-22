@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const examController = require('../../controller/examCtr');
+const authMiddleware = require("../../services/authMdlWr/authMiddleware"); //  this middleware
 
 // Create a new exam
-router.post('/', examController.createExam);
+router.post('/createExam', authMiddleware.authenticate,  examController.createExam);
 
 // Get all exams
 router.get('/', examController.getExams);

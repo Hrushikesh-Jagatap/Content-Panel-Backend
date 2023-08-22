@@ -3,7 +3,7 @@ const Question = require('../model/questionModel');
 // Create a new question
 exports.createQuestion = async (req, res) => {
   try {
-    const { questionType, question, options, correctAnswer, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
+    const { questionType, question, options, correctAnswer,solution, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
 
     if (!examId || !subjectId || !chapterId || !topicId || !subTopicId ) {
       return res.status(400).json({ success: false, error: "All categories ID  are required" });
@@ -15,6 +15,7 @@ exports.createQuestion = async (req, res) => {
       question,
       options,
       correctAnswer,
+      solution,
       exam: examId,
       subject: subjectId,
       chapter: chapterId,

@@ -6,33 +6,29 @@ require("dotenv").config();
 const authController = {
   register: async (req, res) => {
     try {
-      const { email, phone, password } = req.body;
-      const existingUser = await User.findOne({ email });
-
-      if (existingUser) {
-        return res.status(400).json({ message: "User already exists." });
-      }
-
-      const newUser = new User({
-        email,
-        phone,
-        password,
-      });
-
-      await newUser.save();
-      const token = await newUser.generateToken();
-      res.cookie("jwt",token);
-
-      res.status(201).json({ token });
-    } catch (error) {
+        const user = new User(req.body);
+      
+        const emailValidation = await User.findOne({ email: user.email });
+        if (emailValidation) {
+          return res.status(409).json({ message: 'Username already exists' });
+        }
+      
+        const token = await user.generateToken();
+        console.log("Generated token: " + token);
+      
+        res.cookie("jwt", token);
+      
+        await user.save();
+        res.status(201).json({ message: 'User registered successfully' });
+      } catch (error) {
         // Check if the error is due to a duplicate key (phone) conflict
         if (error.code === 11000 && error.keyPattern && error.keyPattern.phone === 1) {
           res.status(409).json({ message: 'Phone number is already registered' });
         } else {
-            res.status(500).json({ message: "Registration failed." });
+          res.status(400).send(error);
         }
-    }
-
+      }
+      
   },
 
   login: async (req, res) => {
@@ -70,7 +66,7 @@ const authController = {
 
   getUserProfile: async (req, res) => {
     try {
-      res.json(req.user); // req.user is populated by middleware
+      res.json(req.user); // req.user is populated by middleware in which we will check is user is found or note any confusion connect to vikash 
     } catch (error) {
       res.status(500).json({ message: "Error fetching user profile." });
     }

@@ -9,6 +9,7 @@ const questionSchema = new mongoose.Schema({
   question: String,
   options: [String],
   correctAnswer: Number, // Store the index of the correct option
+  solution :String,
   exam: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Exam',
