@@ -3,13 +3,13 @@ const router = express.Router();
 const chapterController = require('../../controller/chapterCtr');
 
 // Create a new chapter
-router.post('/', chapterController.createChapter);
+router.post('/createChapter', chapterController.createChapter);
 
 // Get all chapters
-router.get('/', chapterController.getChapters);
+router.get('/getChapters', chapterController.getChapters);
 
 // Get a specific chapter
-router.get('/:id', chapterController.getChapter);
+router.get('/getChapters/:id', chapterController.getChapter);
 
 // Update a chapter
 router.put('/:id', chapterController.updateChapter);

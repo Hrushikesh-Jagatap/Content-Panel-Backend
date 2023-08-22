@@ -6,10 +6,10 @@ const subjectController = require('../../controller/subjectCtr');
 router.post('/createSubject', subjectController.createSubject);
 
 // Get all subjects
-router.get('/', subjectController.getSubjects);
+router.get('/getSubjects', subjectController.getSubjects);
 
 // Get a specific subject
-router.get('/:id', subjectController.getSubject);
+router.get('/getSubjects/:id', subjectController.getSubject);
 
 // Update a subject
 router.put('/:id', subjectController.updateSubject);

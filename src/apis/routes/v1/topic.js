@@ -3,13 +3,13 @@ const router = express.Router();
 const topicController = require('../../controller/topicCtr');
 
 // Create a new topic
-router.post('/', topicController.createTopic);
+router.post('/createTopic', topicController.createTopic);
 
 // Get all topics
-router.get('/', topicController.getTopics);
+router.get('/getTopics', topicController.getTopics);
 
 // Get a single topic by ID
-router.get('/:id', topicController.getTopic);
+router.get('/getTopics/:id', topicController.getTopic);
 
 // Update a topic by ID
 router.put('/:id', topicController.updateTopic);

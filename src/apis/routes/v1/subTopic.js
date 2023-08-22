@@ -3,7 +3,7 @@ const router = express.Router();
 const subTopicController = require('../../controller/subTopicCtr');
 
 // Create a new subtopic
-router.post('/', subTopicController.createSubTopic);
+router.post('/createSubTopic', subTopicController.createSubTopic);
 
 // Get all subtopics
 router.get('/', subTopicController.getSubTopics);

@@ -10,7 +10,7 @@ router.post('/createExam', authMiddleware.authenticate,  examController.createEx
 router.get('/getExams', examController.getExams);
 
 // Get a specific exam
-router.get('/:id', examController.getExam);
+router.get('/getExams/:id', examController.getExam);
 
 // Update an exam
 router.put('/:id', examController.updateExam);
