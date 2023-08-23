@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Subject = require('../model/subjectModel');
 
 exports.createSubject = async (req, res) => {
@@ -32,7 +33,10 @@ exports.getSubjects = async (req, res) => {
 
 exports.getSubject = async (req, res) => {
   try {
-    const subject = await Subject.findById(req.params.id);
+    const examId = req.params.id; // Extract the exam ID from the URL parameter
+    const examObjectId = new mongoose.Types.ObjectId(examId); // Convert examId to ObjectId
+    const subject = await Subject.find({ exam: examObjectId }); // Use findOne instead of find
+
     if (!subject) {
       return res.status(404).json({ success: false, error: 'Subject not found' });
     }

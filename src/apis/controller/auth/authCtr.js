@@ -13,7 +13,7 @@ const authController = {
           return res.status(409).json({ message: 'Username already exists' });
         }
       
-        const token = await user.generateToken();
+        const token = await user.generateToken({ expiresIn: "24h" });
         console.log("Generated token: " + token);
       
         res.cookie("jwt", token);
@@ -44,7 +44,7 @@ const authController = {
     console.log("login page" + isPasswordValid);
 
     if (isPasswordValid) {
-        const token = await user.generateToken();
+        const token = await user.generateToken({ expiresIn: "24h" });
         return res.status(200).json({ message: 'Login successful!', token , user: email });
       } else {
         return res.status(401).json({ message: 'Invalid credentials' });

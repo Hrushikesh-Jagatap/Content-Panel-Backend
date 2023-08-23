@@ -1,3 +1,6 @@
+
+const mongoose = require('mongoose');
+
 const Chapter = require('../model/chapterModel');
 
 // Vikash create your chapter 
@@ -34,7 +37,13 @@ exports.getChapters = async (req, res) => {
 
 exports.getChapter = async (req, res) => {
   try {
-    const chapter = await Chapter.findById(req.params.id);
+
+    const subjectId = req.params.id; 
+    const subjectObjectId = new mongoose.Types.ObjectId(subjectId); 
+    const chapter = await Chapter.find({ subject: subjectObjectId }); 
+
+
+    // const chapter = await Chapter.findById(req.params.id);
     if (!chapter) {
       return res.status(404).json({ success: false, error: 'Chapter not found' });
     }

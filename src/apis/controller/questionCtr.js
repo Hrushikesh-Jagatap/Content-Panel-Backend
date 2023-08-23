@@ -1,4 +1,5 @@
 const Question = require('../model/questionModel');
+const mongoose = require('mongoose');
 
 // Create a new question
 exports.createQuestion = async (req, res) => {

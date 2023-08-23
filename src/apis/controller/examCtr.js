@@ -1,5 +1,6 @@
 const Exam = require('../model/examModel');
 const cloudinary = require('cloudinary').v2;
+const mongoose = require('mongoose');
 
 // cloudinary.config({ 
 //   cloud_name: 'dfzd4xbsk', 

@@ -1,4 +1,5 @@
 const Topic = require('../model/topicModel');
+const mongoose = require('mongoose');
 
 // Create a new topic
 exports.createTopic = async (req, res) => {
@@ -37,7 +38,12 @@ exports.getTopics = async (req, res) => {
 // Get a single topic by ID
 exports.getTopic = async (req, res) => {
   try {
-    const topic = await Topic.findById(req.params.id);
+
+    const chapterId = req.params.id; 
+    const chapterObjectId = new mongoose.Types.ObjectId(chapterId); 
+    const topic = await Topic.find({ chapter: chapterObjectId }); 
+
+    // const topic = await Topic.findById(req.params.id);
     if (!topic) {
       return res.status(404).json({ success: false, error: 'Topic not found' });
     }

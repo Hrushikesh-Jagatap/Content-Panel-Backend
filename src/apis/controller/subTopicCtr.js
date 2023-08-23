@@ -1,4 +1,5 @@
 const SubTopic = require('../model/subTopicModel');
+const mongoose = require('mongoose');
 
 // Create a new subtopic
 exports.createSubTopic = async (req, res) => {
@@ -38,7 +39,11 @@ exports.getSubTopics = async (req, res) => {
 // Get a single subtopic by ID
 exports.getSubTopic = async (req, res) => {
   try {
-    const subTopic = await SubTopic.findById(req.params.id);
+    const topicId = req.params.id; 
+    const topicObjectId = new mongoose.Types.ObjectId(topicId); 
+    const subTopic = await SubTopic.find({ topic : topicObjectId }); 
+
+    // const subTopic = await SubTopic.findById(req.params.id);
     if (!subTopic) {
       return res.status(404).json({ success: false, error: 'SubTopic not found' });
     }

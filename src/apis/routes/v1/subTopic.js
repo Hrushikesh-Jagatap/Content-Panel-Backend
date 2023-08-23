@@ -9,7 +9,7 @@ router.post('/createSubTopic', subTopicController.createSubTopic);
 router.get('/', subTopicController.getSubTopics);
 
 // Get a single subtopic by ID
-router.get('/:id', subTopicController.getSubTopic);
+router.get('/getSubTopics/:id', subTopicController.getSubTopic);
 
 // Update a subtopic by ID
 router.put('/:id', subTopicController.updateSubTopic);
