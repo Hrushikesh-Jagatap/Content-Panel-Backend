@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const questionSchema = new mongoose.Schema({
   questionType: {
     type: String,
-    enum: ['subjective', 'objective'],
     required: true
   },
   question: String,
+  level:String,
   options: [String],
   correctAnswer: Number, // Store the index of the correct option
   solution :String,

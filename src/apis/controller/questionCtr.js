@@ -4,16 +4,15 @@ const mongoose = require('mongoose');
 // Create a new question
 exports.createQuestion = async (req, res) => {
   try {
-    const { questionType, question, options, correctAnswer,solution, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
+    const { questionType, question, level, options, correctAnswer,solution, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
 
     if (!examId || !subjectId || !chapterId || !topicId || !subTopicId ) {
       return res.status(400).json({ success: false, error: "All categories ID  are required" });
     }
-
-
     const newQuestion = await Question.create({
       questionType,
       question,
+      level,
       options,
       correctAnswer,
       solution,

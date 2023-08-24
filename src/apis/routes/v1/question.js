@@ -3,7 +3,7 @@ const router = express.Router();
 const questionController = require('../../controller/questionCtr');
 
 // Create a new question
-router.post('/', questionController.createQuestion);
+router.post('/createQuestion', questionController.createQuestion);
 
 // Get all questions
 router.get('/', questionController.getQuestions);
