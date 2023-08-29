@@ -13,7 +13,7 @@ router.get('/getExams', examController.getExams);
 router.get('/getExams/:id', examController.getExam);
 
 // Update an exam
-router.put('/:id', examController.updateExam);
+router.put('/updateExam/:id', examController.updateExam);
 
 // Delete an exam
 router.delete('/:id', examController.deleteExam);

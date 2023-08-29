@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../model/userMgt/userModel"); // Update the path to your user model
 require("dotenv").config();
+const secretKey = process.env.KEY || 'default-secret'; // Use a default value as a fallback
 
 const authController = {
   register: async (req, res) => {
@@ -44,8 +45,10 @@ const authController = {
     console.log("login page" + isPasswordValid);
 
     if (isPasswordValid) {
-        const token = await user.generateToken({ expiresIn: "24h" });
-        return res.status(200).json({ message: 'Login successful!', token , user: email });
+
+      const accessToken = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '24h' });
+        // const token = await user.generateToken({ expiresIn: "24h" });
+        return res.status(200).json({ message: 'Login successful!', accessToken , user: email });
       } else {
         return res.status(401).json({ message: 'Invalid credentials' });
       }

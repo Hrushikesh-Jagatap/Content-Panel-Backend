@@ -35,7 +35,18 @@ const questionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SubTopic',
     required: true
-  }
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'UserId',
+    required: true
+  },
+  status:String,
+  reviedBy:String,
+  publishedBy:String,
+
+  createdAt: { type: Date, default: Date.now },
+
 });
 
 const Question = mongoose.model('Question', questionSchema);

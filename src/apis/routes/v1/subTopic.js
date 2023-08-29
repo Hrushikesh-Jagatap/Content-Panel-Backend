@@ -12,7 +12,7 @@ router.get('/', subTopicController.getSubTopics);
 router.get('/getSubTopics/:id', subTopicController.getSubTopic);
 
 // Update a subtopic by ID
-router.put('/:id', subTopicController.updateSubTopic);
+router.put('/updateSubTopic/:id', subTopicController.updateSubTopic);
 
 // Delete a subtopic by ID
 router.delete('/:id', subTopicController.deleteSubTopic);

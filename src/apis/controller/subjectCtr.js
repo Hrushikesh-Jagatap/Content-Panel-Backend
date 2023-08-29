@@ -9,6 +9,11 @@ exports.createSubject = async (req, res) => {
       return res.status(400).json({ success: false, error: "Exam  ID is required" });
     }
 
+    const existingSubjectName = await Exam.findOne({ subjectName });
+    if (existingSubjectName) {
+      return res.status(400).json({ success: false, error: 'Subject name is already taken.' });
+    }
+
     const newSubject = await Subject.create({
       subjectName,
       subjectDescription,

@@ -12,7 +12,7 @@ router.get('/getSubjects', subjectController.getSubjects);
 router.get('/getSubjects/:id', subjectController.getSubject);
 
 // Update a subject
-router.put('/:id', subjectController.updateSubject);
+router.put('/updateSubject/:id', subjectController.updateSubject);
 
 // Delete a subject
 router.delete('/:id', subjectController.deleteSubject);

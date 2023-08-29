@@ -12,7 +12,7 @@ router.get('/getChapters', chapterController.getChapters);
 router.get('/getChapters/:id', chapterController.getChapter);
 
 // Update a chapter
-router.put('/:id', chapterController.updateChapter);
+router.put('/updateChapter/:id', chapterController.updateChapter);
 
 // Delete a chapter
 router.delete('/:id', chapterController.deleteChapter);

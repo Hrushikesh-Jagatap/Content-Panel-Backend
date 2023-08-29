@@ -9,7 +9,9 @@ const subjectSchema = new mongoose.Schema({
     ref: 'Exam',
     required: true
 
-  }
+  },
+  createdAt: { type: Date, default: Date.now },
+
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);

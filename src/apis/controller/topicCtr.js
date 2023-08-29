@@ -10,6 +10,11 @@ exports.createTopic = async (req, res) => {
       return res.status(400).json({ success: false, error: "examId, subjectId, chpterId  are required" });
     }
 
+    const existingTopicName = await Exam.findOne({ topicName });
+    if (existingTopicName) {
+      return res.status(400).json({ success: false, error: 'Topic name is already taken.' });
+    }
+
     const newTopic = await Topic.create({
       topicName,
       topicDescription,

@@ -12,6 +12,11 @@ exports.createChapter = async (req, res) => {
       return res.status(400).json({ success: false, error: "Both 'examId' and 'subjectId' are required" });
     }
 
+    const existingChapterName = await Exam.findOne({ chapterName });
+    if (existingChapterName) {
+      return res.status(400).json({ success: false, error: 'Chapter name is already taken.' });
+    }
+
     const newChapter = await Chapter.create({
       chapterName,
       chapterDescription,

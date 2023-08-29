@@ -5,9 +5,14 @@ const mongoose = require('mongoose');
 exports.createQuestion = async (req, res) => {
   try {
     const { questionType, question, level, options, correctAnswer,solution, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
+    const createdBy = req.user._id; 
 
     if (!examId || !subjectId || !chapterId || !topicId || !subTopicId ) {
       return res.status(400).json({ success: false, error: "All categories ID  are required" });
+    }
+    if (!createdBy) {
+      return res.status(400).json({ success: false, error: "User Id is not found" });
+      
     }
     const newQuestion = await Question.create({
       questionType,
@@ -20,7 +25,8 @@ exports.createQuestion = async (req, res) => {
       subject: subjectId,
       chapter: chapterId,
       topic: topicId,
-      subTopic: subTopicId
+      subTopic: subTopicId,
+      createdBy,
     });
 
     res.status(201).json({ success: true, data: newQuestion });

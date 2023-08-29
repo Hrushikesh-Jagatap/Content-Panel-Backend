@@ -10,6 +10,11 @@ exports.createSubTopic = async (req, res) => {
       return res.status(400).json({ success: false, error: " examId , subjectId , chapterId, topicId  are required" });
     }
 
+    const existingSubTopicName = await Exam.findOne({ subTopicName });
+    if (existingSubTopicName) {
+      return res.status(400).json({ success: false, error: 'Sub topic name is already taken.' });
+    }
+
     const newSubTopic = await SubTopic.create({
       subTopicName,
       subTopicDescription,

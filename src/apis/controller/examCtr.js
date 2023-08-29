@@ -10,11 +10,18 @@ const mongoose = require('mongoose');
 
 exports.createExam = async (req, res) => {
   try {
-    const { examName, examDescription, thumbnail } = req.body; // Thumbnail will be the URL
+    const { examName, examDescription, thumbnail } = req.body;
+
+    // Check if the examName is already taken
+    const existingExam = await Exam.findOne({ examName });
+    if (existingExam) {
+      return res.status(400).json({ success: false, error: 'Exam name is already taken.' });
+    }
+
     const newExam = await Exam.create({
       examName,
       examDescription,
-      thumbnail, // Store the URL
+      thumbnail,
     });
 
     res.status(201).json({ success: true, data: newExam });
@@ -22,6 +29,7 @@ exports.createExam = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 
 exports.getExams = async (req, res) => {

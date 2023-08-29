@@ -18,7 +18,9 @@ const topicSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chapter',
     required: true
-  }
+  },
+  createdAt: { type: Date, default: Date.now },
+
 
 });
 

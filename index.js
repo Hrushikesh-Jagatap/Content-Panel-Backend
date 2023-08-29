@@ -13,9 +13,10 @@ const mongoose = require("./src/apis/db/mongoose");
 
 const app = express();
 app.use(cookieparser());  // add cookie parser package
-app.use(express.json());   
-app.use(express.urlencoded({extended:false}))
+// app.use(express.json());   
 
+app.use(express.json({ limit: '10mb' })); // Adjust the limit as needed
+app.use(express.urlencoded({extended:false}))
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());

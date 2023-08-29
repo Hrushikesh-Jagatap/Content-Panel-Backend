@@ -12,7 +12,7 @@ router.get('/getTopics', topicController.getTopics);
 router.get('/getTopics/:id', topicController.getTopic);
 
 // Update a topic by ID
-router.put('/:id', topicController.updateTopic);
+router.put('/updateTopic/:id', topicController.updateTopic);
 
 // Delete a topic by ID
 router.delete('/:id', topicController.deleteTopic);

@@ -15,7 +15,9 @@ const chapterSchema = new mongoose.Schema({
     ref: 'Subject',
     required: true
 
-  }
+  },
+  createdAt: { type: Date, default: Date.now },
+
 });
 
 const Chapter = mongoose.model('Chapter', chapterSchema);
