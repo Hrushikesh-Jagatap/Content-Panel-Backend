@@ -15,6 +15,9 @@ router.get('/:id', questionController.getQuestion);
 // Update a question by ID
 router.put('/:id', authMiddleware.authenticate, questionController.updateQuestion);
 
+// publish a question by ID
+router.put('/publish/:id', authMiddleware.authenticate, questionController.publishQuestion);
+
 // Delete a question by ID
 router.delete('/:id', questionController.deleteQuestion);
 

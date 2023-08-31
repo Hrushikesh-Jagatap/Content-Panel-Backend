@@ -75,6 +75,35 @@ exports.updateQuestion = async (req, res) => {
   }
 };
 
+exports.publishQuestion = async (req, res) => {
+  try {
+    const questionId = req.params.id;
+    const { published, ...updateData } = req.body; // Destructure published and other fields
+
+    const updatedQuestion = await Question.findByIdAndUpdate(
+      questionId,
+      updateData, // Update other fields
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedQuestion) {
+      return res.status(404).json({ success: false, error: 'Question not found' });
+    }
+
+    // Update the published status separately if provided
+    if (published !== undefined) {
+      updatedQuestion.published = published;
+      await updatedQuestion.save();
+    }
+
+    res.status(200).json({ success: true, data: updatedQuestion });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+
 // Delete a question by ID
 exports.deleteQuestion = async (req, res) => {
   try {

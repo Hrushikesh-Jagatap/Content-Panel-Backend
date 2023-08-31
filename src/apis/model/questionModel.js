@@ -41,10 +41,11 @@ const questionSchema = new mongoose.Schema({
     ref: 'UserId',
     required: true
   },
-  status:String,
-  reviedBy:String,
+  published: {
+    type: Boolean,
+    default: false, // Set the default value to false
+  },
   publishedBy:String,
-
   createdAt: { type: Date, default: Date.now },
 
 });
