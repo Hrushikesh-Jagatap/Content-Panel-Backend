@@ -19,6 +19,6 @@ router.put('/:id', authMiddleware.authenticate, questionController.updateQuestio
 router.put('/publish/:id', authMiddleware.authenticate, questionController.publishQuestion);
 
 // Delete a question by ID
-router.delete('/:id', questionController.deleteQuestion);
+router.delete('/delete/:id', questionController.deleteQuestion);
 
 module.exports = router;
