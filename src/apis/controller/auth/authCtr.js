@@ -11,7 +11,11 @@ const authController = {
       
         const emailValidation = await User.findOne({ email: user.email });
         if (emailValidation) {
-          return res.status(409).json({ message: 'Username already exists' });
+          return res.status(409).json({ message: 'User email already exists' });
+        }
+        const phoneValidation = await User.findOne({ phone: user.phone });
+        if (phoneValidation) {
+          return res.status(409).json({ message: 'Phone number already exists' });
         }
       
         const token = await user.generateToken({ expiresIn: "24h" });
@@ -74,6 +78,58 @@ const authController = {
       res.status(500).json({ message: "Error fetching user profile." });
     }
   },
+
+  
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await User.find();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching user list." });
+    }
+  },
+
+  updateUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+
+      // Validate updates and handle password hashing if necessary
+      if (updates.password) {
+        updates.password = await bcrypt.hash(updates.password, 10);
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(id, updates, {
+        new: true,
+      });
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating user." });
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedUser = await User.findByIdAndRemove(id);
+
+      if (!deletedUser) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      res.status(200).json({ message: "User deleted successfully." });
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting user." });
+    }
+  },
+
+
+
 };
 
 module.exports = authController;
