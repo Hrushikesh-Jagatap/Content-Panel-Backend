@@ -3,7 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = require("./src/apis/routes/index")
-
+// import cloudinary from "cloudinary";
+const cloudinary = require('cloudinary');
 const Logger = require('./src/common/lib/logger');
 const { BaseError, INTERNAL_SERVER_ERROR } = require('./src/common/lib/custumError');
 
@@ -14,6 +15,11 @@ const mongoose = require("./src/apis/db/mongoose");
 const app = express();
 app.use(cookieparser());  // add cookie parser package
 // app.use(express.json());   
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+  api_key: process.env.CLOUDINARY_CLIENT_API,
+  api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
+});
 
 app.use(express.json({ limit: '10mb' })); // Adjust the limit as needed
 app.use(express.urlencoded({extended:false}))

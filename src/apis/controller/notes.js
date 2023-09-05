@@ -1,19 +1,29 @@
 // controllers/notesController.js
-const Note = require('../model/notes');
+const cloudinary = require('cloudinary');
 
+const Note = require('../model/notes');
+// import getDataUri from "../services/dataUri";
+const getDataUri = require('../services/dataUri');
 exports.createNote = async (req, res) => {
   try {
     
-    const {filename,fileUrl, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
+    const {filename, examId, subjectId, chapterId, topicId, subTopicId } = req.body;
     const createdBy = req.user._id; 
 
     if (!examId || !subjectId || !chapterId || !topicId || !subTopicId ) {
       return res.status(400).json({ success: false, error: "All categories ID  are required" });
     }
+    const file = req.file;
+
+    const fileUri = getDataUri(file);
+  
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+  
+
 
     const newNote = new Note({
       filename: filename,
-      fileUrl,
+      fileUrl: mycloud.secure_url,
       exam: examId,
       subject: subjectId,
       chapter: chapterId,
