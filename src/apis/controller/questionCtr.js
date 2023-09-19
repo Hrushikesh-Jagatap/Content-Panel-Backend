@@ -1,5 +1,7 @@
 const Question = require('../model/questionModel');
 const mongoose = require('mongoose');
+const User = require("../model/userMgt/userModel"); // Update the path to your user model
+
 
 // Create a new question
 exports.createQuestion = async (req, res) => {
@@ -117,9 +119,8 @@ exports.deleteQuestion = async (req, res) => {
   }
 };
 
-
-// Controller function to get the count of questions created by a user within a date range (default to today)
-exports.getCountOfQuestions = async (req, res) => {
+// Controller function to generate a user report with counts of questions created and published within a date range (default to today)
+exports.generateUserReport = async (req, res) => {
   try {
     const { userId, startDate, endDate } = req.query;
 
@@ -131,19 +132,42 @@ exports.getCountOfQuestions = async (req, res) => {
     // Set the end date to the end of the day (11:59:59 PM)
     end.setHours(23, 59, 59, 999);
 
+    // Find the user's information by userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
     // Find the count of questions created by the user within the date range
-    const questionCount = await Question.countDocuments({
+    const createdQuestionCount = await Question.countDocuments({
       createdBy: userId,
       createdAt: { $gte: start, $lte: end },
     });
 
-    res.json({ questionCount });
+    // Find the count of questions published by the user within the date range
+    const publishedQuestionCount = await Question.countDocuments({
+      createdBy: userId,
+      published: true,
+      createdAt: { $gte: start, $lte: end },
+    });
+
+    res.json({
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+      report: {
+        createdQuestionCount,
+        publishedQuestionCount,
+      },
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching question count.' });
+    res.status(500).json({ error: 'An error occurred while generating the report.' });
   }
 };
-
 
 
 // Controller function to get the count of published questions by a user within a date range

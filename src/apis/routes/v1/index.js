@@ -9,6 +9,7 @@ const questionRouter = require('./question');
 const topicRouter = require('./topic');
 const subTopicRouter = require('./subTopic');
 const notesRouter = require('./notes');
+const reportRouter = require('./report');
 
 
 router.use('/exam', examRouter);
@@ -18,6 +19,7 @@ router.use('/question', questionRouter);
 router.use('/topic', topicRouter);
 router.use('/subTopic', subTopicRouter);
 router.use('/notes', notesRouter);
+router.use('/report',  reportRouter);
 
 
 module.exports = router;
