@@ -116,3 +116,55 @@ exports.deleteQuestion = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+
+// Controller function to get the count of questions created by a user within a date range (default to today)
+exports.getCountOfQuestions = async (req, res) => {
+  try {
+    const { userId, startDate, endDate } = req.query;
+
+    // Set default start and end dates if not provided
+    const today = new Date();
+    const start = startDate ? new Date(startDate) : new Date(today);
+    const end = endDate ? new Date(endDate) : new Date(today);
+
+    // Set the end date to the end of the day (11:59:59 PM)
+    end.setHours(23, 59, 59, 999);
+
+    // Find the count of questions created by the user within the date range
+    const questionCount = await Question.countDocuments({
+      createdBy: userId,
+      createdAt: { $gte: start, $lte: end },
+    });
+
+    res.json({ questionCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching question count.' });
+  }
+};
+
+
+
+// Controller function to get the count of published questions by a user within a date range
+exports.getCountOfPublishedQuestionsByUser = async (req, res) => {
+  try {
+    const { userId, startDate, endDate } = req.query;
+
+    // Convert the date strings to Date objects
+    const start = startDate ? new Date(startDate) : new Date(0); // Default to the beginning of time
+    const end = endDate ? new Date(endDate) : new Date(); // Default to the current date
+
+    // Find the count of published questions by the user within the date range
+    const publishedQuestionCount = await Question.countDocuments({
+      createdBy: userId,
+      published: true,
+      createdAt: { $gte: start, $lte: end },
+    });
+
+    res.json({ publishedQuestionCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching published question count.' });
+  }
+};
