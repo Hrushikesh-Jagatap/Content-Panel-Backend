@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const Exam = require('../model/examModel');
 
 const Chapter = require('../model/chapterModel');
 
