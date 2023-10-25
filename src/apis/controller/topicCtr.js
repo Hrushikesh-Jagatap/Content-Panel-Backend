@@ -1,5 +1,6 @@
 const Topic = require('../model/topicModel');
 const mongoose = require('mongoose');
+const Exam = require('../model/examModel');
 
 // Create a new topic
 exports.createTopic = async (req, res) => {
