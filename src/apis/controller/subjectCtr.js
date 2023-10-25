@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Subject = require('../model/subjectModel');
-
+const Exam = require('../model/examModel');
 exports.createSubject = async (req, res) => {
   try {
     const { subjectName, subjectDescription, thumbnail, examId } = req.body;
