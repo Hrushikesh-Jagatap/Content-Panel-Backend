@@ -1,6 +1,7 @@
 const Question = require('../model/questionModel');
 const mongoose = require('mongoose');
 const User = require("../model/userMgt/userModel"); // Update the path to your user model
+const Exam = require('../model/examModel');
 
 
 // Create a new question
