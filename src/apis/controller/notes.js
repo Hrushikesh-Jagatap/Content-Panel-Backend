@@ -1,5 +1,6 @@
 // controllers/notesController.js
 const cloudinary = require('cloudinary');
+const Exam = require('../model/examModel');
 
 const Note = require('../model/notes');
 // import getDataUri from "../services/dataUri";
