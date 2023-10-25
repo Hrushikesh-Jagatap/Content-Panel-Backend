@@ -1,5 +1,6 @@
 const SubTopic = require('../model/subTopicModel');
 const mongoose = require('mongoose');
+const Exam = require('../model/examModel');
 
 // Create a new subtopic
 exports.createSubTopic = async (req, res) => {
