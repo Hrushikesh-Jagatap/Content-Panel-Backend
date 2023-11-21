@@ -10,8 +10,11 @@ const topicRouter = require('./topic');
 const subTopicRouter = require('./subTopic');
 const notesRouter = require('./notes');
 const reportRouter = require('./report');
+const generateQuestion = require('./generateQuestion');
 
 
+
+router.use('/generateQuestion', generateQuestion);
 router.use('/exam', examRouter);
 router.use('/chapter', chapterRouter);
 router.use('/subject', subjectRouter);
