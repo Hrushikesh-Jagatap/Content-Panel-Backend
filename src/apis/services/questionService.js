@@ -8,7 +8,8 @@ const generateQuestions = async(questionType, exam, subject, chapter, topic, sub
   const questionsWithOptions = selectedQuestions.map(question => {
     return {
       question: question.question,
-      options: question.options
+      options: question.options,
+      correctAnswer: question.correctAnswer
     };
   });
   return questionsWithOptions;
