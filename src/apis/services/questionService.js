@@ -9,7 +9,8 @@ const generateQuestions = async(questionType, exam, subject, chapter, topic, sub
     return {
       question: question.question,
       options: question.options,
-      correctAnswer: question.correctAnswer
+      correctAnswer: question.correctAnswer,
+      solution:question.solution
     };
   });
   return questionsWithOptions;
