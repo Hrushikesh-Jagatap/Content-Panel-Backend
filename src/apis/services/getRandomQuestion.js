@@ -1,6 +1,6 @@
 const Question = require('../model/questionModel');
 
-const generateRandomPublishedQuestions = async (numOfQues, questionType) => {
+const generateRandomPublishedQuestions = async (numOfQues, questionType = 'multipleChoice') => {
   try {
     const query = { published: true };
     if (questionType === 'subjective' || questionType === 'multipleChoice') {
