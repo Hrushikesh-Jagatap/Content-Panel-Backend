@@ -11,11 +11,12 @@ const subTopicRouter = require('./subTopic');
 const notesRouter = require('./notes');
 const reportRouter = require('./report');
 const generateQuestion = require('./generateQuestion');
+const getExamSubject = require('./getExamSubject');
 const getRandomQuestion = require('./getRandomQuestion');
 
 
-
 router.use('/random', getRandomQuestion);
+router.use('/examSub', getExamSubject)
 router.use('/generateQuestion', generateQuestion);
 router.use('/exam', examRouter);
 router.use('/chapter', chapterRouter);
