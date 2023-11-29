@@ -1,9 +1,8 @@
 const Question = require('../model/questionModel');
- 
+
 const generateRandomPublishedQuestions = async (numOfQues, questionType) => {
   try {
-  
-    let query = { published: true };
+    const query = { published: true };
     if (questionType === 'subjective' || questionType === 'multipleChoice') {
       query.questionType = questionType;
     }
@@ -12,10 +11,27 @@ const generateRandomPublishedQuestions = async (numOfQues, questionType) => {
     if (numOfQues > 0) {
       randomPublishedQuestions = await Question.aggregate([
         { $match: query },
-        { $sample: { size: numOfQues } }
+        { $sample: { size: numOfQues } },
+        {
+          $project: {
+            question: 1,
+            options: 1,
+            correctAnswer: 1,
+            solution: 1,
+            level: 1,
+            published: 1
+          }
+        }
       ]);
     } else {
-      randomPublishedQuestions = await Question.find(query).limit(5);
+      randomPublishedQuestions = await Question.find(query, {
+        question: 1,
+        options: 1,
+        correctAnswer: 1,
+        solution: 1,
+        level: 1,
+        published: 1
+      }).limit(5);
     }
 
     return randomPublishedQuestions;
